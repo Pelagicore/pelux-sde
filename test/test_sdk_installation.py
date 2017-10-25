@@ -13,7 +13,7 @@ import os
 
 @pytest.fixture(scope="class")
 def vagrant():
-    os.system("NO_GUI=1 vagrant up")
+    os.system("SDK_FILE_NAME=\"stub_sdk.sh\" NO_GUI=1 vagrant up")
     yield
     os.system("vagrant destroy -f")
 
