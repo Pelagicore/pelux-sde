@@ -1,6 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 #
 # Copyright (C) 2017 Pelagicore AB
 #
@@ -13,6 +12,14 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+def install_sdk(config)
+
+  sdk_file_name = (ENV["SDK_FILE_NAME"] || "oecore*toolchain*sh")
+  config.vm.provision "sdk", type: "shell",
+                      args: [sdk_file_name],
+                      path: "sde-cookbook/sdk/install_sdk.sh"
+end
+
 def setup_virtualbox_provider(config, num_cpus, ram_mb)
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.box_check_update = false
@@ -20,6 +27,7 @@ def setup_virtualbox_provider(config, num_cpus, ram_mb)
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
     vb.gui = true unless ENV["NO_GUI"]
+    vb.name = "PELUX-SDE"
 
     vb.customize ["modifyvm", :id, "--memory", ram_mb]
     vb.cpus = num_cpus
@@ -31,5 +39,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ram_mb = ENV["VAGRANT_RAM"] || "4096"
 
   setup_virtualbox_provider(config, num_cpus, ram_mb)
+  install_sdk(config)
 
 end

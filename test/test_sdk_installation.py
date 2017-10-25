@@ -23,6 +23,9 @@ class Test(object):
     def test_is_a_sane_ubuntu_system(self):
         self.__run_test_script_inside_vm("check_is_ubuntu.py")
 
+    def test_can_find_sdk(self):
+        self.__run_test_script_inside_vm("can_find_sdk.py")
+
     PATH_ON_VM_TO_TEST_SCRIPTS = "/vagrant/test/scripts"
     def __run_test_script_inside_vm(self, script_name, script_args=""):
         script_exec_result = os.system("vagrant ssh -c \"python3 {}/{} {}\"".format(self.PATH_ON_VM_TO_TEST_SCRIPTS,
