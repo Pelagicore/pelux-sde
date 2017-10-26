@@ -12,6 +12,12 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+def install_with_apt(config, program)
+  config.vm.provision "shell" do |s|
+    s.inline = "apt-get update -y && apt-get install " + program + " -y"
+  end
+end
+
 def install_sdk(config)
 
   sdk_file_name = (ENV["SDK_FILE_NAME"] || "oecore*toolchain*sh")
@@ -34,11 +40,21 @@ def setup_virtualbox_provider(config, num_cpus, ram_mb)
   end
 end
 
+def start_desktop_environment(config)
+  config.vm.provision "shell" do |s|
+    s.inline = "systemctl start gdm3"
+  end
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   num_cpus = (ENV["VAGRANT_NUM_CPUS"] || "2").to_i
   ram_mb = ENV["VAGRANT_RAM"] || "4096"
 
   setup_virtualbox_provider(config, num_cpus, ram_mb)
+  install_with_apt(config, "gnome-shell")
+  install_with_apt(config, "gnome-terminal")
   install_sdk(config)
+
+  start_desktop_environment(config)
 
 end
