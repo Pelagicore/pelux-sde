@@ -26,6 +26,9 @@ class Test(object):
     def test_can_find_sdk(self):
         self.__run_test_script_inside_vm("can_find_sdk.py")
 
+    def test_sanitycheck_qtcreator_configuration(self):
+        self.__run_test_script_inside_vm("qtcreator_is_configured_to_use_sdk.py")
+
     PATH_ON_VM_TO_TEST_SCRIPTS = "/vagrant/test/scripts"
     def __run_test_script_inside_vm(self, script_name, script_args=""):
         script_exit_code = os.system("vagrant ssh -c \"python3 {}/{} {}\"".format(

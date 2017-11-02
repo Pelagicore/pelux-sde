@@ -51,6 +51,15 @@ def install_qtcreator(config, qtcreator_install_dir)
   config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/install_qtcreator.sh"
 end
 
+def configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
+  config.vm.provision "shell", args: [qtcreator_install_dir], :inline => <<-SHELL
+      QT_CREATOR_INSTALL_DIR=$1
+
+      source /opt/pelux_sdk/environment-setup*
+      /vagrant/sde-cookbook/sdk/configure-qtcreator.py "$QT_CREATOR_INSTALL_DIR/libexec/qtcreator/sdktool"
+  SHELL
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   num_cpus = (ENV["VAGRANT_NUM_CPUS"] || "2").to_i
   ram_mb = ENV["VAGRANT_RAM"] || "4096"
@@ -62,6 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   qtcreator_install_dir = "/opt/qtcreator"
   install_qtcreator(config, qtcreator_install_dir)
+  configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
 
   start_desktop_environment(config)
 
