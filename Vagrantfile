@@ -46,6 +46,11 @@ def start_desktop_environment(config)
   end
 end
 
+def install_qtcreator(config, qtcreator_install_dir)
+  install_with_apt(config, "wget")
+  config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/install_qtcreator.sh"
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   num_cpus = (ENV["VAGRANT_NUM_CPUS"] || "2").to_i
   ram_mb = ENV["VAGRANT_RAM"] || "4096"
@@ -54,6 +59,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   install_with_apt(config, "gnome-shell")
   install_with_apt(config, "gnome-terminal")
   install_sdk(config)
+
+  qtcreator_install_dir = "/opt/qtcreator"
+  install_qtcreator(config, qtcreator_install_dir)
 
   start_desktop_environment(config)
 
