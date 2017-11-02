@@ -1,0 +1,7 @@
+.vagrant
+test/*.xml
+test/.cache
+test/__pycache__
+*.swp
+*.swo
+.idea
