@@ -45,10 +45,13 @@ class QtCreatorBootstrapper(object):
         arch_env_var = os.environ["ARCH"]
         if "arm" in arch_env_var:
             self.architecture = "arm"
+            self.bits = "64bit" if "64" in arch_env_var else "32bit"
         elif "x86" in arch_env_var:
             self.architecture = "x86"
+            self.bits = "64bit" if "64" in arch_env_var else "32bit"
         else:
             self.architecture = "unknown"
+            self.bits = "unknown"
 
         self.sdktool = sdktool_path
         assert shutil.which(self.sdktool) is not None
@@ -69,7 +72,7 @@ class QtCreatorBootstrapper(object):
         self.__add_toolchain(id=self.cc_toolchain_id, compiler_env_var="CC", lang="C")
 
     def __add_toolchain(self, id, compiler_env_var, lang):
-        abi = "{}-linux-generic-elf-64bit".format(self.architecture)
+        abi = "{}-linux-generic-elf-{}".format(self.architecture, self.bits)
         compiler_path = shutil.which(os.environ[("%s" % compiler_env_var)].split()[0])
         self.__exec_cmd("addTC"
                         + " --name " + self.name + "_" + compiler_env_var
