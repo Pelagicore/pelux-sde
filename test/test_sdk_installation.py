@@ -11,6 +11,7 @@
 import pytest
 import os
 
+
 @pytest.fixture(scope="class")
 def vagrant():
     try:
@@ -19,19 +20,19 @@ def vagrant():
     finally:
         os.system("vagrant destroy -f")
 
+
 @pytest.mark.usefixtures("vagrant")
 class Test(object):
 
-    def test_is_a_sane_ubuntu_system(self):
-        self.__run_test_script_inside_vm("check_is_ubuntu.py")
-
-    def test_can_find_sdk(self):
-        self.__run_test_script_inside_vm("can_find_sdk.py")
-
-    def test_sanitycheck_qtcreator_configuration(self):
-        self.__run_test_script_inside_vm("qtcreator_is_configured_to_use_sdk.py")
-
     PATH_ON_VM_TO_TEST_SCRIPTS = "/vagrant/test/scripts"
+    SCRIPTS_PATH = os.path.dirname(__file__) + "/scripts"
+    PYTHON3_SCRIPTS_IN_SCRIPTS_PATH = [f for f in os.listdir(SCRIPTS_PATH)
+                                       if f.endswith(".py")]
+
+    @pytest.mark.parametrize("script", PYTHON3_SCRIPTS_IN_SCRIPTS_PATH)
+    def test_script_inside_vm(self, script):
+        self.__run_test_script_inside_vm(script)
+
     def __run_test_script_inside_vm(self, script_name, script_args=""):
         script_exit_code = os.system("vagrant ssh -c \"python3 {}/{} {}\"".format(
                                                self.PATH_ON_VM_TO_TEST_SCRIPTS,
