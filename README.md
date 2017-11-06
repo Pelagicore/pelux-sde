@@ -34,3 +34,16 @@ Note: In order to do clean tests, this script will tear down and destroy the VM 
 ```bash
 test/run-tests.sh
 ```
+
+Developing features
+-------------------
+Since the SDK takes a long time to download and a long time to extract the tests
+use a stubbed version of the SDK. The stubbed version sets mock values for
+everything that is needed during the setup but nothing is actually installed.
+For instance is cmake setup by the stubbed SDK as a symlink to /bin/true.
+
+Keep in mind that the stubbed SDK is intended to be minimal. Meaning it will not
+set all environment variables and provide fake installations of all tools
+installed by a real SDK. Therefore when developing new features for the SDE, it
+is likely necessary to extend the stubbed SDK with more environment variables or
+stubbed instances of tools.
