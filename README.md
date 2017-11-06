@@ -30,6 +30,7 @@ Testing
 Dependencies:
 * pytest
 
+Note: In order to do clean tests, this script will tear down and destroy the VM if it is already created
 ```bash
 test/run-tests.sh
 ```

@@ -13,9 +13,11 @@ import os
 
 @pytest.fixture(scope="class")
 def vagrant():
-    assert os.system("SDK_FILE_NAME=\"stub_sdk.sh\" NO_GUI=1 vagrant up") == 0
-    yield
-    os.system("vagrant destroy -f")
+    try:
+        assert os.system("SDK_FILE_NAME=\"stub_sdk.sh\" NO_GUI=1 vagrant up") == 0
+        yield
+    finally:
+        os.system("vagrant destroy -f")
 
 @pytest.mark.usefixtures("vagrant")
 class Test(object):
