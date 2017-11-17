@@ -73,7 +73,8 @@ class QtCreatorBootstrapper(object):
 
     def __add_toolchain(self, id, compiler_env_var, lang):
         abi = "{}-linux-generic-elf-{}".format(self.architecture, self.bits)
-        compiler_path = shutil.which(os.environ[("%s" % compiler_env_var)].split()[0])
+        compiler_binary_name = os.environ[(str(compiler_env_var))].split()[0]
+        compiler_path = shutil.which(compiler_binary_name)
         self.__exec_cmd("addTC"
                         + " --name " + self.name + "_" + compiler_env_var
                         + " --language " + lang
