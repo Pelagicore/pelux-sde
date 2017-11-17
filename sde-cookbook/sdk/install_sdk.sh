@@ -18,6 +18,7 @@ mkdir -p ${PELUX_SDK_DESTINATION}
 cp -r /vagrant/${SDK_SELF_EXTRACTOR} ${PELUX_SDK_DESTINATION}
 
 # Unpack the sdk
+chmod +x ${PATH_TO_SDK_SELF_EXTRACTOR}
 printf "${PELUX_SDK_DESTINATION}\nY\n" | ${PATH_TO_SDK_SELF_EXTRACTOR}
 
 # Remove the self extractor
