@@ -10,6 +10,8 @@
 
 import pytest
 import os
+import subprocess
+import sys
 
 
 @pytest.fixture(scope="class")
@@ -34,9 +36,21 @@ class Test(object):
         self.__run_test_script_inside_vm(script)
 
     def __run_test_script_inside_vm(self, script_name, script_args=""):
-        script_exit_code = os.system("vagrant ssh -c \"python3 {}/{} {}\"".format(
-                                               self.PATH_ON_VM_TO_TEST_SCRIPTS,
-                                               script_name,
-                                               script_args))
+        command_to_run_in_vm = "python3 {}/{} {}".format(
+                                        self.PATH_ON_VM_TO_TEST_SCRIPTS,
+                                        script_name,
+                                        script_args)
+
+        args = ["vagrant", "ssh", "-c", command_to_run_in_vm]
+        process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        script_exit_code = process.wait()
+
+        if script_exit_code != 0:
+            print(self.pipe_to_str(process.stdout))
+            print(self.pipe_to_str(process.stderr), file=sys.stderr)
+
         assert script_exit_code == 0
+
+    def pipe_to_str(self, pipe):
+        return "\n".join([ x.decode() for x in pipe.readlines() ])
 
