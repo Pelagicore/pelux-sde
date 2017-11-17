@@ -56,7 +56,7 @@ def configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
       QT_CREATOR_INSTALL_DIR=$1
 
       source /opt/pelux_sdk/environment-setup*
-      /vagrant/sde-cookbook/sdk/configure-qtcreator.py "$QT_CREATOR_INSTALL_DIR/libexec/qtcreator/sdktool"
+      /vagrant/sde-cookbook/qtcreator/configure-qtcreator.py "$QT_CREATOR_INSTALL_DIR/libexec/qtcreator/sdktool"
   SHELL
 end
 
