@@ -51,6 +51,11 @@ def install_qtcreator(config, qtcreator_install_dir)
   config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/install_qtcreator.sh"
 end
 
+def add_template_service_wizard(config, qtcreator_install_dir)
+  install_with_apt(config, "git")
+  config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/add-template-service-wizard.sh"
+end
+
 def configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
   config.vm.provision "shell", args: [qtcreator_install_dir], :inline => <<-SHELL
       QT_CREATOR_INSTALL_DIR=$1
@@ -72,6 +77,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   qtcreator_install_dir = "/opt/qtcreator"
   install_qtcreator(config, qtcreator_install_dir)
   configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
+  add_template_service_wizard(config, qtcreator_install_dir)
 
   start_desktop_environment(config)
 
