@@ -21,7 +21,8 @@ vagrant up
 Following is a list of environment variables used by vagrant when provisioning the SDE.
 
 * SDK_FILE_NAME: Name of the self-exctracting SDK package to install into the SDE. Can include wildcards.
-Defaults to `oecore*toolchain*sh`.
+Defaults to `oecore*toolchain*sh`. Note that this has to be an SDK with Qt on
+it.
 * NO_GUI: Will create a headless SDE when set.
 
 
