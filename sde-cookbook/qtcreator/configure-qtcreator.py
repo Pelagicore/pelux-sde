@@ -20,8 +20,7 @@ been sourced before this script is executed.
 import os
 import shutil
 import time
-import argparse
-
+import sys
 
 class CommandException(Exception):
     pass
@@ -135,11 +134,11 @@ class QtCreatorBootstrapper(object):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("sdktool_path", help="The path to sdktool")
-    args = parser.parse_args()
+    if len(sys.argv) != 2:
+        print("Need to pass path to the sdktool")
+        quit()
 
-    bootstrapper = QtCreatorBootstrapper(args.sdktool_path)
+    bootstrapper = QtCreatorBootstrapper(sys.argv[1])
     try:
         bootstrapper.add_cxx_toolchain()
         bootstrapper.add_cc_toolchain()
