@@ -13,7 +13,7 @@ import os
 
 
 def find_template(template_name, qtcreator_install_dir):
-    template_path = "{}/share/qtcreator/templates".format(qtcreator_install_dir)
+    template_path = "{}/share/qtcreator/templates/wizards/".format(qtcreator_install_dir)
     return template_name in os.listdir(template_path)
 
 
