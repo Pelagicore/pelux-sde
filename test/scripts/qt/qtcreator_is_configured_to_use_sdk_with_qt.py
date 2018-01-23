@@ -14,8 +14,5 @@ def find_term_in_file(search_term, filename):
     content_of_file = "\n".join(content_of_file)
     return search_term in content_of_file
 
-
-term = "PELUX-SDK"
-assert find_term_in_file(term, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/qtversion.xml")
-assert find_term_in_file(term, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/profiles.xml")
-assert find_term_in_file(term, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/toolchains.xml")
+path = "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/profiles.xml"
+assert find_term_in_file("mkSpecInformation", path)

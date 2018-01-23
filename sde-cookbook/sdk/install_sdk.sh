@@ -11,7 +11,12 @@
 
 SDK_SELF_EXTRACTOR=$1
 PELUX_SDK_DESTINATION="/opt/pelux_sdk"
-PATH_TO_SDK_SELF_EXTRACTOR="${PELUX_SDK_DESTINATION}/${SDK_SELF_EXTRACTOR}"
+
+# Because we copy the self-extracting-installer from /vagrant/ to
+# /opt/pelux_sdk and we changed that its not directly in /vagrant/
+# but instead /vagrant/test/stubs/name_sdk.sh, we only need the
+# name of the installer, not the path, therefor the basename.
+PATH_TO_SDK_SELF_EXTRACTOR="${PELUX_SDK_DESTINATION}/`basename ${SDK_SELF_EXTRACTOR}`"
 
 # Copy sdk file to pelux sdk destination
 mkdir -p ${PELUX_SDK_DESTINATION}
