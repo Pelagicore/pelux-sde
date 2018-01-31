@@ -102,7 +102,11 @@ class QtCreatorBootstrapper(object):
                         )
         self.__add_rollback_cmd("rmQt --id " + self.qtversion_id)
 
-    def add_kit(self):
+    def add_kit(self, use_qt=False):
+        qt_params = ""
+        if use_qt:
+            qt_params += " --qt " + self.qtversion_id + " --mkspec \"" + os.environ["QMAKESPEC"] + "\""
+
         self.__exec_cmd("addKit"
                         + " --name " + self.name
                         + " --id " + self.kit_id
@@ -113,8 +117,7 @@ class QtCreatorBootstrapper(object):
                         + " --Cxxtoolchain " + self.cxx_toolchain_id
                         + " --Ctoolchain " + self.cc_toolchain_id
                         + " --cmake " + self.cmake_id
-                        + " --qt " + self.qtversion_id
-                        + " --mkspec \"" + os.environ["QMAKESPEC"] + "\""
+                        + qt_params
                         + self.generate_env_arguments()
                         )
         self.__add_rollback_cmd("rmKit --id " + self.kit_id)
@@ -132,6 +135,9 @@ class QtCreatorBootstrapper(object):
 
         self.rollback_stack = []
 
+def qt_installed():
+    return shutil.which("qmake") is not None
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -143,8 +149,9 @@ if __name__ == "__main__":
         bootstrapper.add_cxx_toolchain()
         bootstrapper.add_cc_toolchain()
         bootstrapper.add_cmake()
-        bootstrapper.add_qt_version()
-        bootstrapper.add_kit()
+        if qt_installed():
+            bootstrapper.add_qt_version()
+        bootstrapper.add_kit(qt_installed())
     except CommandException as e:
         bootstrapper.rollback()
         raise e
