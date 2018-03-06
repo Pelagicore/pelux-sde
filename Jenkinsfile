@@ -11,10 +11,9 @@
  */
 
 
-node ("PyTest") {
+node ("PyTest && Vagrant && VirtualBox") {
     stage("Checkout") {
         checkout scm
-        sh 'git submodule update --init'
     }
 
     stage("Run tests") {
