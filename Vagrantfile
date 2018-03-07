@@ -65,9 +65,9 @@ def configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
   SHELL
 end
 
-def install_dlt_viewer(config)
+def install_dlt_viewer(config, num_cpus)
   install_with_apt(config, "git")
-  config.vm.provision "shell", args: [], path: "sde-cookbook/dlt-viewer/install_dlt-viewer.sh"
+  config.vm.provision "shell", args: [num_cpus], path: "sde-cookbook/dlt-viewer/install_dlt-viewer.sh"
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -77,7 +77,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   setup_virtualbox_provider(config, num_cpus, ram_mb)
   install_with_apt(config, "gnome-shell")
   install_with_apt(config, "gnome-terminal")
-
   install_sdk(config)
 
   qtcreator_install_dir = "/opt/qtcreator"
@@ -88,7 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   install_with_apt(config, "g++")
   install_with_apt(config, "qt5-default")
   install_with_apt(config, "qt5-qmake")
-  install_dlt_viewer(config)
+  install_dlt_viewer(config, num_cpus)
 
   start_desktop_environment(config)
 
