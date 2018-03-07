@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 #
 # Copyright (C) 2018 Luxoft
-# All rights reserved
+#
+# SPDX-License-Identifier: MPL-2.0
 #
 
 import os
