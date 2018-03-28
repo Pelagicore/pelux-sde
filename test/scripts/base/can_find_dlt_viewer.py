@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 #
 # Copyright (C) 2018 Luxoft
 #
@@ -14,6 +14,6 @@ def find_service(service_name, install_dir):
 
 
 if __name__ == "__main__":
-    service_name = "dlt_viewer"
-    if not find_service(service_name, "/usr/bin"):
-        raise Exception("Could not find dlt_viewer installed")
+    SERVICE_NAME = "dlt_viewer"
+    if not find_service(SERVICE_NAME, "/usr/bin"):
+        raise Exception("Could not find " + SERVICE_NAME + " installed")

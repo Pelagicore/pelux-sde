@@ -8,10 +8,10 @@
 # SPDX-License-Identifier: MPL-2.0
 #
 
-import pytest
 import os
 import subprocess
 import sys
+import pytest
 
 # Constants
 
@@ -45,7 +45,7 @@ def run_test_script_inside_vm(script_type, script_name, script_args=""):
 
 
 def pipe_to_str(pipe):
-    return "\n".join([ x.decode() for x in pipe.readlines() ])
+    return "\n".join([x.decode() for x in pipe.readlines()])
 
 
 # Fixtures
