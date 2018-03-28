@@ -67,12 +67,11 @@ def vagrant_no_qt():
     finally:
         os.system("vagrant destroy -f")
 
-        
 # Tests
-        
+
 @pytest.mark.usefixtures("vagrant")
 class Test(object):
-    
+
     @pytest.mark.parametrize("script", scripts_for("base"))
     def test_script_inside_vm(self, script):
         run_test_script_inside_vm("base", script)
@@ -81,10 +80,10 @@ class Test(object):
     def test_script_inside_vm_qt(self, script):
         run_test_script_inside_vm("qt", script)
 
-    
+
 @pytest.mark.usefixtures("vagrant_no_qt")
 class TestNoQt(object):
-    
+
     @pytest.mark.parametrize("script", scripts_for("base"))
     def test_script_inside_vm(self, script):
         run_test_script_inside_vm("base", script)
