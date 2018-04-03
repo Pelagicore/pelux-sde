@@ -26,7 +26,7 @@ def install_sdk(config)
                       path: "sde-cookbook/sdk/install_sdk.sh"
 end
 
-def setup_virtualbox_provider(config, num_cpus, ram_mb)
+def setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.box_check_update = false
 
@@ -36,6 +36,7 @@ def setup_virtualbox_provider(config, num_cpus, ram_mb)
     vb.name = "PELUX-SDE"
 
     vb.customize ["modifyvm", :id, "--memory", ram_mb]
+    vb.customize ["modifyvm", :id, "--vram", vram_mb]
     vb.cpus = num_cpus
   end
 end
@@ -73,8 +74,9 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   num_cpus = (ENV["VAGRANT_NUM_CPUS"] || "2").to_i
   ram_mb = ENV["VAGRANT_RAM"] || "4096"
+  vram_mb = ENV["VAGRANT_VRAM"] || "128"
 
-  setup_virtualbox_provider(config, num_cpus, ram_mb)
+  setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
   install_with_apt(config, "gnome-shell")
   install_with_apt(config, "gnome-terminal")
   install_sdk(config)
