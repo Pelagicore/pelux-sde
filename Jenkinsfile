@@ -10,8 +10,7 @@
  *  SPDX-License-Identifier: MPL-2.0# Copyright (C) 2017 Pelagicore AB
  */
 
-
-node ("PyTest") {
+node ("PyTest && Vagrant && VirtualBox") {
     stage("Checkout") {
         checkout scm
         sh 'git submodule update --init'
