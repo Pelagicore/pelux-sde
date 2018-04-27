@@ -87,6 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   install_with_apt(config, "g++")
   install_with_apt(config, "qt5-default")
   install_with_apt(config, "qt5-qmake")
+  install_with_apt(config, "libqt5serialport5-dev")
   install_dlt_viewer(config, num_cpus)
 
   start_desktop_environment(config)
