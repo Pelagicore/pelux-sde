@@ -12,9 +12,14 @@ Build
 Dependencies:
 * Vagrant
 * VirtualBox
+* Self-extracting SDK package to install into the SDE. See, [Building the SDK installer](http://pelux.io/software-factory/master/swf-blueprint/docs/articles/baseplatform/creating-sdk.html#building-the-sdk).
+
+For building the SDK installer, fetch the PELUX sources as describe in [Prerequisites for building a PELUX image](http://pelux.io/software-factory/master/swf-blueprint/docs/articles/baseplatform/prerequisites.html).
+
+After building SDK installer, copy the SDK installer into PELUX-SDE repository's root directory and run,
 
 ```bash
-vagrant up
+SDK_FILE_NAME=<SDK installer> vagrant up
 ```
 
 ### Used environment variables:
