@@ -2,6 +2,7 @@
 
 #
 # Copyright (C) 2017 Pelagicore AB
+# Copyright (C) 2018 Luxoft Sweden AB
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,7 +31,7 @@ function Controller() {
 }
 
 Controller.prototype.WelcomePageCallback = function() {
-    gui.clickButton(buttons.NextButton);
+    gui.clickButton(buttons.NextButton, 3000);
 }
 
 Controller.prototype.CredentialsPageCallback = function() {
@@ -80,7 +81,7 @@ set -e
 
 # Download qt-creator-installer
 QT_INSTALLER=$(mktemp --dry-run "/tmp/qt-creator-installer-XXXXXXXX.run")
-wget -O ${QT_INSTALLER} http://download.qt.io/official_releases/qtcreator/4.4/4.4.1/qt-creator-opensource-linux-x86_64-4.4.1.run
+wget -O ${QT_INSTALLER} http://download.qt.io/official_releases/qtcreator/4.7/4.7.1/qt-creator-opensource-linux-x86_64-4.7.1.run
 
 chmod +x ${QT_INSTALLER}
 ${QT_INSTALLER} --script "${SCRIPT_FILE}" --platform minimal
