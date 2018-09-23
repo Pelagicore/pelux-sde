@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 #
 # Copyright (C) 2017 Pelagicore AB
+# Copyright (C) 2018 Luxoft Sweden AB
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,11 +20,10 @@ def install_with_apt(config, program)
 end
 
 def install_sdk(config)
-
   sdk_file_name = (ENV["SDK_FILE_NAME"] || "oecore*toolchain*sh")
   config.vm.provision "sdk", type: "shell",
-                      args: [sdk_file_name],
-                      path: "sde-cookbook/sdk/install_sdk.sh"
+                             args: [sdk_file_name],
+                             path: "sde-cookbook/sdk/install_sdk.sh"
 end
 
 def setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
@@ -49,26 +49,30 @@ end
 
 def install_qtcreator(config, qtcreator_install_dir)
   install_with_apt(config, "wget")
-  config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/install_qtcreator.sh"
+  config.vm.provision "shell", args: [qtcreator_install_dir],
+                               path: "sde-cookbook/qtcreator/install_qtcreator.sh"
 end
 
 def add_template_service_wizard(config, qtcreator_install_dir)
   install_with_apt(config, "git")
-  config.vm.provision "shell", args: [qtcreator_install_dir], path: "sde-cookbook/qtcreator/add-template-service-wizard.sh"
+  config.vm.provision "shell", args: [qtcreator_install_dir],
+                               path: "sde-cookbook/qtcreator/add-template-service-wizard.sh"
 end
 
 def configure_qtcreator_to_use_sdk(config, qtcreator_install_dir)
   config.vm.provision "shell", args: [qtcreator_install_dir], :inline => <<-SHELL
-      QT_CREATOR_INSTALL_DIR=$1
+    QT_CREATOR_INSTALL_DIR=$1
 
-      source /opt/pelux_sdk/environment-setup*
-      /vagrant/sde-cookbook/qtcreator/configure-qtcreator.py "$QT_CREATOR_INSTALL_DIR/libexec/qtcreator/sdktool"
+    source /opt/pelux_sdk/environment-setup*
+    /vagrant/sde-cookbook/qtcreator/configure-qtcreator.py \
+	  "$QT_CREATOR_INSTALL_DIR/libexec/qtcreator/sdktool"
   SHELL
 end
 
 def install_dlt_viewer(config, num_cpus)
   install_with_apt(config, "git")
-  config.vm.provision "shell", args: [num_cpus], path: "sde-cookbook/dlt-viewer/install_dlt-viewer.sh"
+  config.vm.provision "shell", args: [num_cpus],
+                               path: "sde-cookbook/dlt-viewer/install_dlt-viewer.sh"
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -93,5 +97,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   install_dlt_viewer(config, num_cpus)
 
   start_desktop_environment(config)
-
 end
