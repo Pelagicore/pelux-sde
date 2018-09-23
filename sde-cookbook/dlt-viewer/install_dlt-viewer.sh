@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) Luxoft 2018
+# Copyright (C) 2018 Luxoft Sweden AB
 #
 # SPDX-License-Identifier: MPL-2.0
 #
@@ -8,7 +8,7 @@
 DLT_VIEWER_TMP_DIR=/tmp/github
 
 DLT_REPO_NAME="dlt-viewer"
-DLT_REPO_REVISION="c2d8147c94853622e7c0f02542968d72d8701c37"
+DLT_REPO_REVISION="4549ac888b7d66526bcde0145f3fb6280f626261"
 
 mkdir -p ${DLT_VIEWER_TMP_DIR}
 cd ${DLT_VIEWER_TMP_DIR}
