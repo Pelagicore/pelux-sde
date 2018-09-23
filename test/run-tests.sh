@@ -12,4 +12,4 @@
 
 cd "$(dirname "$0")"
 
-py.test -v --junit-xml=test_result.xml
+py.test-3 -v --junit-xml=test_result.xml
