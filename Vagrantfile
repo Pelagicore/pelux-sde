@@ -27,7 +27,7 @@ def install_sdk(config)
 end
 
 def setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "bento/ubuntu-18.04"
   config.vm.box_check_update = false
 
   config.vm.provider "virtualbox" do |vb|
@@ -81,8 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   vram_mb = ENV["VAGRANT_VRAM"] || "128"
 
   setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
-  install_with_apt(config, "gnome-shell")
-  install_with_apt(config, "gnome-terminal")
+  install_with_apt(config, "ubuntu-gnome-desktop")
   install_sdk(config)
 
   qtcreator_install_dir = "/opt/qtcreator"
