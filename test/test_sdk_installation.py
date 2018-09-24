@@ -50,24 +50,25 @@ def pipe_to_str(pipe):
     return "\n".join([ x.decode() for x in pipe.readlines() ])
 
 
+# Fixtures common code
+
+def setup_sdk_stub_in_vm(stub_script_name):
+    try:
+        assert os.system("SDK_FILE_NAME=\"test/stubs/{}\" NO_GUI=1 vagrant up".format(stub_script_name)) == 0
+        yield
+    finally:
+        os.system("vagrant destroy -f")
+
 # Fixtures
 
 @pytest.fixture(scope="class")
 def vagrant():
-    try:
-        assert os.system("SDK_FILE_NAME=\"test/stubs/full_sdk.sh\" NO_GUI=1 vagrant up") == 0
-        yield
-    finally:
-        os.system("vagrant destroy -f")
-
+    setup_sdk_stub_in_vm("full_sdk.sh")
 
 @pytest.fixture(scope="class")
 def vagrant_no_qt():
-    try:
-        assert os.system("SDK_FILE_NAME=\"test/stubs/sans_qmake_sdk.sh\" NO_GUI=1 vagrant up") == 0
-        yield
-    finally:
-        os.system("vagrant destroy -f")
+    setup_sdk_stub_in_vm("sans_qmake_sdk.sh")
+
 
 # Tests
 
