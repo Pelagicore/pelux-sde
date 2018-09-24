@@ -20,5 +20,5 @@ if not os.path.isdir(PATH_TO_SDK_IN_VM):
 # check sdk not empty
 files_in_sdk_directory = os.listdir(PATH_TO_SDK_IN_VM)
 print(files_in_sdk_directory)
-if len(files_in_sdk_directory) == 0:
+if not files_in_sdk_directory:  # (seq is false if empty)
     exit(1)

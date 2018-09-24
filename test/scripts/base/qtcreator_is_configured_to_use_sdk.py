@@ -11,12 +11,12 @@
 #
 
 def find_term_in_file(search_term, filename):
-    with open(filename) as f:
-        content_of_file = f.readlines()
+    with open(filename) as file:
+        content_of_file = file.readlines()
     content_of_file = "\n".join(content_of_file)
     return search_term in content_of_file
 
 
-term = "PELUX-SDK"
-assert find_term_in_file(term, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/profiles.xml")
-assert find_term_in_file(term, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/toolchains.xml")
+TERM = "PELUX-SDK"
+assert find_term_in_file(TERM, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/profiles.xml")
+assert find_term_in_file(TERM, "/opt/qtcreator/share/qtcreator/QtProject/qtcreator/toolchains.xml")

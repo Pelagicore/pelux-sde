@@ -12,6 +12,6 @@
 
 import os
 
-uname_version_string = os.uname().version
-if "ubuntu" not in uname_version_string.lower():
+UNAME_VERSION_STRING = os.uname().version
+if "ubuntu" not in UNAME_VERSION_STRING.lower():
     exit(1)

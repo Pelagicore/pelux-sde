@@ -80,7 +80,7 @@ class QtCreatorBootstrapper(object):
                         + " --id " + id
                         + " --abi " + abi
                         + " --path " + compiler_path
-                        )
+                       )
         self.__add_rollback_cmd("rmTC --id " + id)
 
     def add_cmake(self):
@@ -89,7 +89,7 @@ class QtCreatorBootstrapper(object):
                         + " --name " + self.name
                         + " --id " + self.cmake_id
                         + " --path " + cmake_path
-                        )
+                       )
         self.__add_rollback_cmd("rmCMake --id " + self.cmake_id)
 
     def add_qt_version(self):
@@ -99,13 +99,13 @@ class QtCreatorBootstrapper(object):
                         + " --id " + self.qtversion_id
                         + " --type RemoteLinux.EmbeddedLinuxQt"
                         + " --qmake " + qmake
-                        )
+                       )
         self.__add_rollback_cmd("rmQt --id " + self.qtversion_id)
 
     def add_kit(self, use_qt=False):
         qt_params = ""
         if use_qt:
-            qt_params += " --qt " + self.qtversion_id + " --mkspec \"" + os.environ["QMAKESPEC"] + "\""
+            qt_params += ' --qt {} --mkspec "{}"'.format(self.qtversion_id, os.environ["QMAKESPEC"])
 
         self.__exec_cmd("addKit"
                         + " --name " + self.name
@@ -119,7 +119,7 @@ class QtCreatorBootstrapper(object):
                         + " --cmake " + self.cmake_id
                         + qt_params
                         + self.generate_env_arguments()
-                        )
+                       )
         self.__add_rollback_cmd("rmKit --id " + self.kit_id)
 
     def generate_env_arguments(self):

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 #
 # Copyright (C) 2017 Pelagicore AB
 #
@@ -19,6 +18,6 @@ def find_template(template_name, qtcreator_install_dir):
 
 
 if __name__ == "__main__":
-    template_name = "template-service-wizard"
-    if not find_template(template_name, "/opt/qtcreator"):
-        raise Exception("Could not find template")
+    TEMPLATE_NAME = "template-service-wizard"
+    if not find_template(TEMPLATE_NAME, "/opt/qtcreator"):
+        raise Exception("Could not find template " + TEMPLATE_NAME)
