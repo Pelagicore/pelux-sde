@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 #
 # Copyright (C) 2017 Pelagicore AB
-# Copyright (C) 2018 Luxoft Sweden AB
+# Copyright (C) 2018-2019 Luxoft Sweden AB
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,7 +15,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 def install_with_apt(config, program)
   config.vm.provision "shell" do |s|
-    s.inline = "apt-get update -y && apt-get install " + program + " -y"
+    s.inline = "apt-get update -y && yes \"\" | apt-get install " + program + " -y"
   end
 end
 
