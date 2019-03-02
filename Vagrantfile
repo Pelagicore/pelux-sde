@@ -82,6 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
   install_with_apt(config, "ubuntu-gnome-desktop")
+  install_with_apt(config, "gcc")
   install_sdk(config)
 
   qtcreator_install_dir = "/opt/qtcreator"
