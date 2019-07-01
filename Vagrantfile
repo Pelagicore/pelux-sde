@@ -28,6 +28,7 @@ end
 
 def setup_virtualbox_provider(config, num_cpus, ram_mb, vram_mb)
   config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box_version = "201906.18.0"
   config.vm.box_check_update = false
 
   config.vm.provider "virtualbox" do |vb|
