@@ -81,7 +81,7 @@ set -e
 
 # Download qt-creator-installer
 QT_INSTALLER=$(mktemp --dry-run "/tmp/qt-creator-installer-XXXXXXXX.run")
-wget -O ${QT_INSTALLER} http://download.qt.io/official_releases/qtcreator/4.9/4.9.0/qt-creator-opensource-linux-x86_64-4.9.0.run
+wget -O ${QT_INSTALLER} http://download.qt.io/official_releases/qtcreator/4.10/4.10.0/qt-creator-opensource-linux-x86_64-4.10.0.run
 
 chmod +x ${QT_INSTALLER}
 ${QT_INSTALLER} --script "${SCRIPT_FILE}" --platform minimal
